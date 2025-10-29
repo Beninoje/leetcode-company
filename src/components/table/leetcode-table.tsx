@@ -32,6 +32,8 @@ import {
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { QuestionsTableProps } from "@/types"
+import { companyIcons } from "@/constants"
+import Image from "next/image"
 
 export function QuestionsDataTable({ questions }: QuestionsTableProps) {
   // --- column & filter state ---
@@ -77,9 +79,9 @@ export function QuestionsDataTable({ questions }: QuestionsTableProps) {
       cell: ({ row }) => {
         const diff = row.getValue("difficulty")
         const color =
-          diff === "Easy" ? "bg-green-500/20 text-green-600 rounded-sm" :
-          diff === "Medium" ? "bg-yellow-500/20 text-yellow-600 rounded-sm" :
-          "bg-red-500/20 text-red-600 rounded-sm"
+          diff === "Easy" ? "bg-green-500/10 text-green-600 rounded-sm" :
+          diff === "Medium" ? "bg-yellow-500/10 text-yellow-600 rounded-sm" :
+          "bg-red-500/10 text-red-600 rounded-sm"
 
         return <Badge className={color}>{diff as string}</Badge>
       },
@@ -105,12 +107,15 @@ export function QuestionsDataTable({ questions }: QuestionsTableProps) {
       header: "Companies",
       cell: ({ row }) => (
         <div className="flex flex-wrap gap-2">
-          {row.original.companies
-            .map((c: any) => (
-              <Badge key={c.name} variant="outline" className="rounded-sm dark:bg-zinc-800 bg-zinc-50">
-                {c.name} 
-              </Badge>
-            ))}
+          {row.original.companies.map((c: any) => (
+    <Badge key={c.name} variant="outline" className="flex items-center gap-2 py-1 rounded-sm dark:bg-zinc-800 bg-zinc-50 text-[12px]">
+      {companyIcons[c.name] && (
+        <Image src={companyIcons[c.name]} alt={c.name} className="w-5 h-5" width={24} height={24} />
+      )}
+      {c.name}
+    </Badge>
+  ))}
+
         </div>
       ),
       filterFn: (row, columnId, filterValue) => {
@@ -150,7 +155,7 @@ export function QuestionsDataTable({ questions }: QuestionsTableProps) {
 
         {/* Difficulty Filter */}
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger asChild className="cursor-pointer">
             <Button variant="outline">
               Difficulty : {selectedDifficulty || "All"} <ChevronDown />
             </Button>
@@ -165,6 +170,7 @@ export function QuestionsDataTable({ questions }: QuestionsTableProps) {
                     .getColumn("difficulty")
                     ?.setFilterValue(diff === "All" ? undefined : diff)
                 }
+                className="cursor-pointer"
               >
                 {diff}
               </DropdownMenuCheckboxItem>
@@ -174,7 +180,7 @@ export function QuestionsDataTable({ questions }: QuestionsTableProps) {
 
         {/* Pattern Filter */}
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger asChild className="cursor-pointer">
             <Button variant="outline">
               Pattern : {selectedPattern || "All"} <ChevronDown />
             </Button>
@@ -187,6 +193,7 @@ export function QuestionsDataTable({ questions }: QuestionsTableProps) {
                 onCheckedChange={(checked) =>
                   table.getColumn("pattern")?.setFilterValue(p === "All" ? undefined : p)
                 }
+                className="cursor-pointer"
               >
                 {p}
               </DropdownMenuCheckboxItem>
@@ -196,7 +203,7 @@ export function QuestionsDataTable({ questions }: QuestionsTableProps) {
 
         {/* Company Filter */}
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger asChild className="cursor-pointer">
             <Button variant="outline">
               Company : {selectedCompany || "All"} <ChevronDown />
             </Button>
@@ -209,6 +216,7 @@ export function QuestionsDataTable({ questions }: QuestionsTableProps) {
                 onCheckedChange={(checked) =>
                   table.getColumn("companies")?.setFilterValue(c === "All" ? undefined : c)
                 }
+                className="cursor-pointer"
               >
                 {c}
               </DropdownMenuCheckboxItem>
