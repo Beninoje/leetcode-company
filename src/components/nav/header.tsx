@@ -10,8 +10,8 @@ type Props = {}
 const Header = (props: Props) => {
 const { setTheme, theme, resolvedTheme } = useTheme()
   return (
-    <header className=' w-full py-5 sm:py-0 fixed top-0 left-0 right-0 dark:bg-[#121212]/80 bg-white/20  backdrop-blur-lg z-40'>
-      <nav className="flex items-center justify-between gap-3 max-w-7xl mx-auto px-4 py-3">
+    <header className=' w-full py-5  fixed top-0 left-0 right-0 dark:bg-zinc-900/80 bg-white/20  backdrop-blur-lg z-40 border border-b border-zinc-200 dark:border-zinc-800'>
+      <nav className="flex items-center justify-between gap-3 max-w-7xl mx-auto px-4">
         <div className="">
         <ul className='flex gap-6 items-center justify-between'>
             <li  className={` `}>

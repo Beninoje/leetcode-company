@@ -28,7 +28,7 @@ const FrequencyTabs = ({questions}: QuestionsTableProps) => {
         <div className=''>
             <ul className='flex flex-wrap gap-2 mt-4 mb-6'>
                 {patternsArray.map(([pattern, count]) => (
-                <li key={pattern} className='bg-gray-200 dark:bg-gray-800 inline-block  mb-2 px-3 py-1 rounded-lg text-sm text-zinc-100 border border-zinc-700'>
+                <li key={pattern} className='bg-gray-50 dark:bg-zinc-800 inline-block  mb-2 px-3 py-1 rounded-lg text-sm text-zinc-700 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-700'>
                     {pattern}: <b>{count}</b>
                 </li>
                 ))}
