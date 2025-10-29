@@ -72,7 +72,6 @@ export const companyIcons: Record<string, string> = {
   "Visa": "/icons/visa.png",
   "Pure Storage": "/icons/pure-storage.png",
   "Urban Company": "/icons/urban-company.png",
-  "Snap": "/icons/snap.png",
   "Zomato": "/icons/zomato.png",
   "Tesla": "/icons/tesla.png",
   "Hubspot": "/icons/hubspot.png",
