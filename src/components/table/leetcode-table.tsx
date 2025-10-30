@@ -236,9 +236,9 @@ export function QuestionsDataTable({ questions }: QuestionsTableProps) {
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} >
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
+                  <TableHead key={header.id} className="px-4">
                     {flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHead>
                 ))}
@@ -256,7 +256,7 @@ export function QuestionsDataTable({ questions }: QuestionsTableProps) {
                     return (
                       <TableCell
                         key={cell.id}
-                        className={`${cellWidth} truncate max-w-[150px]`}
+                        className={`${cellWidth} truncate max-w-[150px] px-4`}
                       >
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </TableCell>

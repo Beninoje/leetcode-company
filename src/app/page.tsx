@@ -10,7 +10,7 @@ import Image from "next/image";
 export default function Home() {
   const questions = loadQuestions();
   return (
-    <div className="pt-32 dark:bg-zinc-900">
+    <div className="pt-32 dark:bg-zinc-900 min-h-screen">
       <MaxWidthContainer>
         <h2 className="text-2xl font-bold">Problem Pattern Frequency</h2>
         <FrequencyTabs questions={questions} />
