@@ -12,6 +12,7 @@ import {
   useReactTable,
   flexRender,
 } from "@tanstack/react-table"
+import { X, Funnel } from "lucide-react";
 import { BookOpen, ChevronDown } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -34,6 +35,8 @@ import { Badge } from "@/components/ui/badge"
 import { QuestionsTableProps } from "@/types"
 import { companyIcons } from "@/constants"
 import Image from "next/image"
+import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
+
 
 export function QuestionsDataTable({ questions }: QuestionsTableProps) {
   // --- column & filter state ---
@@ -153,40 +156,34 @@ export function QuestionsDataTable({ questions }: QuestionsTableProps) {
           className="max-w-sm"
         />
 
-        {/* Difficulty Filter */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild className="cursor-pointer">
-            <Button variant="outline">
-              Difficulty : {selectedDifficulty || "All"} <ChevronDown />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            {["All",...difficulties].map((diff) => (
-               <DropdownMenuCheckboxItem
-                key={diff}
-                checked={selectedDifficulty === diff || (!selectedDifficulty && diff === "All")}
-                onCheckedChange={(checked) =>
-                  table
-                    .getColumn("difficulty")
-                    ?.setFilterValue(diff === "All" ? undefined : diff)
-                }
-                className="cursor-pointer"
-              >
-                {diff}
-              </DropdownMenuCheckboxItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <DropdownMenuPrimitive.Root modal={false}>
+            <DropdownMenuPrimitive.Trigger asChild className="cursor-pointer">
+              <Button variant="outline">Difficulty: {selectedDifficulty || "All"} <ChevronDown /></Button>
+            </DropdownMenuPrimitive.Trigger>
 
-        {/* Pattern Filter */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild className="cursor-pointer">
-            <Button variant="outline">
-              Pattern : {selectedPattern || "All"} <ChevronDown />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="max-h-64 overflow-y-auto">
-            {["All", ...patterns].map((p) => (
+            <DropdownMenuContent>
+              {["All", ...difficulties].map((diff) => (
+                <DropdownMenuCheckboxItem
+                  key={diff}
+                  checked={selectedDifficulty === diff || (!selectedDifficulty && diff === "All")}
+                  onCheckedChange={(checked) =>
+                    table.getColumn("difficulty")?.setFilterValue(diff === "All" ? undefined : diff)
+                  }
+                  className="cursor-pointer"
+                >
+                  {diff}
+                </DropdownMenuCheckboxItem>
+              ))}
+            </DropdownMenuContent>
+        </DropdownMenuPrimitive.Root>
+
+        <DropdownMenuPrimitive.Root modal={false}>
+            <DropdownMenuPrimitive.Trigger asChild className="cursor-pointer">
+              <Button variant="outline">Pattern : {selectedPattern || "All"} <ChevronDown /></Button>
+            </DropdownMenuPrimitive.Trigger>
+
+            <DropdownMenuContent>
+              {["All", ...patterns].map((p) => (
               <DropdownMenuCheckboxItem
                 key={p}
                 checked={selectedPattern === p || (!selectedPattern && p === "All")}
@@ -198,18 +195,17 @@ export function QuestionsDataTable({ questions }: QuestionsTableProps) {
                 {p}
               </DropdownMenuCheckboxItem>
             ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        {/* Company Filter */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild className="cursor-pointer">
-            <Button variant="outline">
+            </DropdownMenuContent>
+        </DropdownMenuPrimitive.Root>
+        <DropdownMenuPrimitive.Root modal={false}>
+            <DropdownMenuPrimitive.Trigger asChild className="cursor-pointer">
+              <Button variant="outline">
               Company : {selectedCompany || "All"} <ChevronDown />
             </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="max-h-64 overflow-y-auto">
-            {["All", ...companies].map((c) => (
+            </DropdownMenuPrimitive.Trigger>
+
+            <DropdownMenuContent>
+              {["All", ...companies].map((c) => (
               <DropdownMenuCheckboxItem
                 key={c}
                 checked={selectedCompany === c || (!selectedCompany && c === "All")}
@@ -221,8 +217,18 @@ export function QuestionsDataTable({ questions }: QuestionsTableProps) {
                 {c}
               </DropdownMenuCheckboxItem>
             ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+            </DropdownMenuContent>
+        </DropdownMenuPrimitive.Root>
+        <Button variant="outline" className="cursor-pointer" onClick={()=>
+          {
+            table.getColumn("companies")?.setFilterValue(undefined)
+            table.getColumn("pattern")?.setFilterValue(undefined)
+            table.getColumn("difficulty")?.setFilterValue(undefined)
+            table.getColumn("title")?.setFilterValue(undefined)
+          }}>
+            Clear Filters
+            <X className="w-4 h-4" />
+        </Button>
       </div>
 
       {/* 📊 Table */}
