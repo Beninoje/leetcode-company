@@ -3,7 +3,10 @@ name: Weekly Leetcode Data Update
 on:
   schedule:
     - cron: "0 6 * * 1" 
-  workflow_dispatch: 
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   update-data:
