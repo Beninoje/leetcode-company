@@ -21,7 +21,7 @@ jobs:
         run: pip install requests
 
       - name: Run fetch script
-        run: python cron/fetch_questions.py
+        run: python cron/fetch-questions.py
 
 
       - name: Commit and push changes
